@@ -1,5 +1,9 @@
 <?php 
 
+// Notificar solamente errores de ejecución
+//error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+
 //Imprimir todo el contenido de una variable, en este caso, del método post del form.
 //print_r($_POST);
 
@@ -80,7 +84,13 @@ switch ($_POST['btnAccion']) {
               echo "Boton Cancelar";
               break;
 }
-
+		//where 1 es sinónimode true, es lo mismo que un select * from empleado
+		$query = $pdo->prepare("select * from empleado where 1;");	
+		$query->execute();
+		//fetch_assoc asocia información de la query al array $listaEmpleados .
+		$listaEmpleados=$query->fetchAll(PDO::FETCH_ASSOC);
+		
+		print_r($listaEmpleados);
 
 
 
@@ -99,7 +109,7 @@ switch ($_POST['btnAccion']) {
 
 </head>
 <body>
-	<div class="form-row">
+	<div class="form-group">
 		<!--enctype="multipart/form-data" Sirve para rececionar imágenes dentro del formulario-->
 		<form action="" method="post" enctype="multipart/form-data">
 		<!--(label{lbl$:}+input[name = "txt$" placeholder="" id="txt$" require]+br)*6-->	
@@ -108,34 +118,44 @@ switch ($_POST['btnAccion']) {
 			<label for="">ID:</label>
 			<input type="text" name="txtId" value="<?php echo $txtId ?>" placeholder="" id="txtId" require="">
 			<br>
+			
 			-->
+			<div >
+				<label for="">Nombres:</label>
+				<input type="text" class="form-control" name="txtNombre"  value="<?php echo $txtNombre ?>" placeholder="" id="txtNombre" require="">
+				<br>
+			</div>
+			
+			<div >
+				<label for="">Apellido Paterno:</label>
+				<input type="text"  class="form-control" name="txtApellidoPaterno" value="<?php echo $txtApellidoPaterno ?>" placeholder="" id="txtApellidoPaterno" require="">
+				<br>
+			</div>
+			
+			<div >
+				<label for="">Apellido Materno:</label>
+				<input type="text" class="form-control" name="txtApellidoMaterno" value="<?php echo $txtApellidoMaterno ?>" placeholder="" id="txtApellidoMaterno" require="">
+				<br>
+			</div>
 
-			<label for="">Nombres:</label>
-			<input type="text" class="form-control" name="txtNombre"  value="<?php echo $txtNombre ?>" placeholder="" id="txtNombre" require="">
-			<br>
-
-			<label for="">Apellido Paterno:</label>
-			<input type="text"  class="form-control" name="txtApellidoPaterno" value="<?php echo $txtApellidoPaterno ?>" placeholder="" id="txtApellidoPaterno" require="">
-			<br>
-		
-			<label for="">Apellido Materno:</label>
-			<input type="text" class="form-control" name="txtApellidoMaterno" value="<?php echo $txtApellidoMaterno ?>" placeholder="" id="txtApellidoMaterno" require="">
-			<br>
-
-			<label for="">Correo:</label>
-			<input type="text" class="form-control" name="txtCorreo" value="<?php echo $txtCorreo ?>" placeholder="" id="txtCorreo" require="">
-			<br>
-
-			<label for="">Foto:</label>
-			<input type="text" class="form-control" name="txtFoto"  value="<?php echo $txtFoto ?>" placeholder="" id="txtFoto" require="">
-			<br>
+			<div >
+				<label for="">Correo:</label>
+				<input type="text" class="form-control" name="txtCorreo" value="<?php echo $txtCorreo ?>" placeholder="" id="txtCorreo" require="">
+				<br>
+			</div>
+			
+			<div class="form-group">
+				<label for="">Foto:</label>
+				<input type="text" class="form-control" name="txtFoto"  value="<?php echo $txtFoto ?>" placeholder="" id="txtFoto" require="">
+				<br>
+			</div>
 			
 		<!--(button[value="btn$" type="submit" name="accion"])*4-->
 			<button value="btnAgregar" class="btn btn-primary" type="submit" name="btnAccion">Agregar</button>
 			<button value="btnModificar" class="btn btn-warning" type="submit" name="btnAccion">Modificar</button>
 			<button value="btnEliminar" class="btn btn-danger" type="submit" name="btnAccion">Eliminar</button>
 			<button value="btnCancelar" class="btn btn-secondary" type="submit" name="btnAccion">Cancerlar</button>
-
+			<div/>
 
 
 		</form>			
