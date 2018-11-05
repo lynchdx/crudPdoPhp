@@ -89,7 +89,7 @@ switch ($_POST['btnAccion']) {
 		$query->execute();
 		//fetch_assoc asocia información de la query al array $listaEmpleados .
 		$listaEmpleados=$query->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		print_r($listaEmpleados);
 
 
@@ -156,9 +156,31 @@ switch ($_POST['btnAccion']) {
 			<button value="btnEliminar" class="btn btn-danger" type="submit" name="btnAccion">Eliminar</button>
 			<button value="btnCancelar" class="btn btn-secondary" type="submit" name="btnAccion">Cancerlar</button>
 			<div/>
-
-
 		</form>			
+
+		<!--table>thread>tr>(th)*4-->
+		<table>
+			<thread>
+				<tr>
+					<th>Foto</th>
+					<th>Nombre Completo</th>
+					<th>Correo</th>
+					<th>Acciones</th>
+				</tr>
+			</thread>
+			<?php foreach($listaEmpleados as $empleado){ ?>		
+				<!--tr>(td)*4-->
+				<tr>
+					<td><?php echo $empleado['foto']; ?></td>
+					<td><?php echo $empleado['nombre']; ?> <?php echo $empleado['apellidop']; ?> <?php echo $empleado['apellidom']; ?></td>
+					<td><?php echo $empleado['correo']; ?></td>
+					<td><input type="button" value="Seleccionar" name="accion"></td>
+				</tr>
+			<?php } ?>
+
+		</table>
+
+
 
 	</div>
 	
